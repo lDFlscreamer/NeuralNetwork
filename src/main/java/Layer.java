@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 
 public class Layer extends RecursiveTask<Map<Integer, Double>>implements Serializable {
@@ -91,21 +92,23 @@ public class Layer extends RecursiveTask<Map<Integer, Double>>implements Seriali
 	 */
 	public Map<Integer, Double> calculate() throws ExecutionException, InterruptedException {
 		ForkJoinPool forkJoinPool=new ForkJoinPool();
+		List<ForkJoinTask<Double>> tasks = new ArrayList<>();
 		for (Neuron n :
 				neurons) {
 			n.setPreviousLayerResults(this.previousLayerResults);
-			forkJoinPool.submit(n);
+			ForkJoinTask<Double> task = forkJoinPool.submit(n::calculateActivationFunction);
+			tasks.add(task);
 		}
 
 		this.layerResults.clear();
 		boolean allDone;
 		do {
 			allDone=true;
-			for (int i = 0; i < neurons.size(); i++) {
-				Neuron neuron = neurons.get(i);
-				allDone &= neuron.isDone();
-				if (neuron.isDone()) {
-					layerResults.put(i, neuron.get());
+			for (int i = 0; i < tasks.size(); i++) {
+				ForkJoinTask<Double> task = tasks.get(i);
+				allDone &= task.isDone();
+				if (task.isDone()) {
+					layerResults.put(i, task.get());
 				}
 			}
 
@@ -113,7 +116,6 @@ public class Layer extends RecursiveTask<Map<Integer, Double>>implements Seriali
 
 		return this.layerResults;
 	}
-
 	@Override
 	protected Map<Integer, Double> compute() {
 		try {

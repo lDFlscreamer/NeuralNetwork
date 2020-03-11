@@ -13,20 +13,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ForkJoinPool;
 
-public class Network implements Serializable {
+public class NeuralNetwork implements Serializable {
+	private final Layer lastLayer;
 	private Layer firstLayer;
-	private Layer lastLayer;
 
-	public Network(NetworkConfig config) {
+	public NeuralNetwork(NetworkConfig config) {
 		List<Integer> neuronsOnLayer = config.getNeuronsOnLayer();
 		Layer current = null;
 		for (Integer amount :
 				neuronsOnLayer) {
-			current = current==null?
-					new Layer(config.getInputArraySize(),amount,config.getFunc())
-					:new Layer(current, amount, config.getFunc());
+			current = current == null ?
+					new Layer(config.getInputArraySize(), amount, config.getFunc())
+					: new Layer(current, amount, config.getFunc());
 			if (firstLayer == null) {
 				firstLayer = current;
 			}
@@ -37,6 +36,17 @@ public class Network implements Serializable {
 		lastLayer = current;
 	}
 
+	public Layer getFirstLayer() {
+		return firstLayer;
+	}
+
+	public void setFirstLayer(Layer firstLayer) {
+		this.firstLayer = firstLayer;
+	}
+
+	public Layer getLastLayer() {
+		return lastLayer;
+	}
 
 	public Map<Integer, Double> calculate(double[] input) throws ExecutionException, InterruptedException {
 		Layer layer = firstLayer;
@@ -46,10 +56,10 @@ public class Network implements Serializable {
 			layerResult.put(i, input[i]);
 		}
 
-		while (layer!=null){
+		while (layer != null) {
 			layer.setPreviousLayerResults(layerResult);
 			layerResult = layer.calculate();
-			layer=layer.getNextLayer();
+			layer = layer.getNextLayer();
 		}
 		return layerResult;
 	}

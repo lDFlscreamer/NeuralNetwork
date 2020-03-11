@@ -17,7 +17,7 @@ import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Neuron extends RecursiveTask<Double> implements Serializable {
+public class Neuron  implements Serializable {
 	private static final AtomicInteger amount = new AtomicInteger(0);
 	private final List<Double> weights;
 	private final int id;
@@ -75,14 +75,19 @@ public class Neuron extends RecursiveTask<Double> implements Serializable {
 		}
 	}
 
-	@Override
-	protected Double compute() {
-		System.out.println("Neuron.compute");
+
+	public double getSum() {
 		double sum = 0;
 		for (int i = 0; i < previousLayerResults.size(); i++) {
 			sum += this.previousLayerResults.get(i) * this.weights.get(i);
 		}
 		sum += bias;
+		return sum;
+	}
+
+	public double calculateActivationFunction(){
+		double sum = this.getSum();
 		return this.function.calculate(sum);
 	}
+
 }

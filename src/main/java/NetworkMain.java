@@ -26,7 +26,7 @@ public class NetworkMain {
 		integers.add(8);
 		config.setNeuronsOnLayer(integers);
 
-		Network network=new Network(config);
+		NeuralNetwork network=new NeuralNetwork(config);
 		double[] doubles = {0.1, 0.5};
 		Map<Integer, Double> calculate = network.calculate(doubles);
 		System.out.println("calculate = " + calculate);
