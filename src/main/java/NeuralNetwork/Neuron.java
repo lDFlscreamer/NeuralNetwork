@@ -6,26 +6,27 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-import config.Function;
+package NeuralNetwork;
+
+import NeuralNetwork.config.Function;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class Neuron  implements Serializable {
+public class Neuron implements Serializable {
 	private static final AtomicInteger amount = new AtomicInteger(0);
-	private final List<Double> weights;
 	private final int id;
 	private final Function function;
+	private final List<Double> weights;
 	private final Map<Integer, Double> previousLayerResults;
 	private double bias;
-
-
+	//output data
+	private double sum;
 	public Neuron(Function function) {
 		this(1, function);
 		this.changeWeights(0, 1);
@@ -40,8 +41,16 @@ public class Neuron  implements Serializable {
 
 		this.weights = new ArrayList<>();
 		for (int i = 0; i < initialWeightAmount; i++) {
-			weights.add(ThreadLocalRandom.current().nextDouble() + 0.1);
+			weights.add(ThreadLocalRandom.current().nextDouble()*0.3 + 0.1);
 		}
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public double getSum() {
+		return sum;
 	}
 
 	public List<Double> getWeights() {
@@ -75,18 +84,18 @@ public class Neuron  implements Serializable {
 		}
 	}
 
-
-	public double getSum() {
+	public double calculateSum() {
 		double sum = 0;
 		for (int i = 0; i < previousLayerResults.size(); i++) {
 			sum += this.previousLayerResults.get(i) * this.weights.get(i);
 		}
 		sum += bias;
+		this.sum = sum;
 		return sum;
 	}
 
-	public double calculateActivationFunction(){
-		double sum = this.getSum();
+	public double calculateActivationFunction() {
+		double sum = this.calculateSum();
 		return this.function.calculate(sum);
 	}
 

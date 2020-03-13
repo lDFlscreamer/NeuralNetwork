@@ -6,35 +6,37 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package config;/*
- * Copyright (c)  3.2020
- * This file (config.NetworkConfig) is part of NeuralNetwork.
- * Unauthorized copying of this file, via any medium is strictly prohibited
- * Proprietary and confidential
- * Written by Screamer  <999screamer999@gmail.com>
- */
+package NeuralNetwork.config;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NetworkConfig {
-	public static Function SIGMOID = (s -> 1 / (1 + Math.exp(-s)));
 	private List<Integer> neuronsOnLayer;
 	private Integer inputArraySize;
+	private Integer lastLayerNeuronsAmount;
 	private Function func;
 
 	public NetworkConfig() {
-		this(0, new ArrayList<>(), NetworkConfig.SIGMOID);
+		this(0, new ArrayList<>(), 0, Functions.SIGMOID);
+	}
+	public NetworkConfig(Integer inputArraySize, List<Integer> neuronsOnLayer, Integer lastLayerNeuronsAmount) {
+		this(inputArraySize, neuronsOnLayer, lastLayerNeuronsAmount, Functions.SIGMOID);
 	}
 
-	public NetworkConfig(Integer inputArraySize, List<Integer> neuronsOnLayer) {
-		this(inputArraySize, neuronsOnLayer, NetworkConfig.SIGMOID);
-	}
-
-	public NetworkConfig(Integer inputArraySize, List<Integer> neuronsOnLayer, Function func) {
+	public NetworkConfig(Integer inputArraySize, List<Integer> neuronsOnLayer, Integer lastLayerNeuronsAmount, Function func) {
 		this.neuronsOnLayer = neuronsOnLayer;
 		this.inputArraySize = inputArraySize;
+		this.lastLayerNeuronsAmount = lastLayerNeuronsAmount;
 		this.func = func;
+	}
+
+	public Integer getLastLayerNeuronsAmount() {
+		return lastLayerNeuronsAmount;
+	}
+
+	public void setLastLayerNeuronsAmount(Integer lastLayerNeuronsAmount) {
+		this.lastLayerNeuronsAmount = lastLayerNeuronsAmount;
 	}
 
 	public Integer getInputArraySize() {

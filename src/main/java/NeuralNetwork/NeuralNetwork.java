@@ -1,14 +1,17 @@
 /*
  * Copyright (c)  3.2020
- * This file (Network) is part of NeuralNetwork.
+ * This file (NeuralNetwork) is part of NeuralNetwork.
  * Unauthorized copying of this file, via any medium is strictly prohibited
  * Proprietary and confidential
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-import config.NetworkConfig;
+package NeuralNetwork;
+
+import NeuralNetwork.config.NetworkConfig;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +22,8 @@ public class NeuralNetwork implements Serializable {
 	private Layer firstLayer;
 
 	public NeuralNetwork(NetworkConfig config) {
-		List<Integer> neuronsOnLayer = config.getNeuronsOnLayer();
+		List<Integer> neuronsOnLayer = new ArrayList<>(config.getNeuronsOnLayer());
+		neuronsOnLayer.add(config.getLastLayerNeuronsAmount());
 		Layer current = null;
 		for (Integer amount :
 				neuronsOnLayer) {
