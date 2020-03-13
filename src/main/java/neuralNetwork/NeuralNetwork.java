@@ -6,9 +6,9 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package NeuralNetwork;
+package neuralNetwork;
 
-import NeuralNetwork.config.NetworkConfig;
+import neuralNetwork.config.NetworkConfig;
 
 import java.io.Serializable;
 import java.util.ArrayList;

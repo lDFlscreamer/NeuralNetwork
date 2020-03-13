@@ -7,12 +7,13 @@
  */
 
 
-import MachineLearning.CostFunctions;
-import MachineLearning.LearningData.LearningSample;
-import MachineLearning.BackPropagation.BackPropagation;
-import NeuralNetwork.NeuralNetwork;
-import NeuralNetwork.config.Functions;
-import NeuralNetwork.config.NetworkConfig;
+import machineLearning.CostFunctions;
+import machineLearning.learningData.LearningSample;
+import machineLearning.consecutive.backPropagation.BackPropagationConsecutive;
+import machineLearning.parallel.backPropagation.BackPropagationParallel;
+import neuralNetwork.NeuralNetwork;
+import neuralNetwork.config.Functions;
+import neuralNetwork.config.NetworkConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,12 @@ public class NetworkMain {
 		config.setInputArraySize(2);
 		List<Integer> integers = new ArrayList<>();
 		integers.add(2);
-//		integers.add(8);
+		integers.add(8);
+		integers.add(8);
+		integers.add(8);
+		integers.add(8);
+		integers.add(8);
+		integers.add(8);
 		config.setNeuronsOnLayer(integers);
 		config.setLastLayerNeuronsAmount(2);
 /*create Network*/
@@ -61,12 +67,13 @@ public class NetworkMain {
 		learningSampleList.add(new LearningSample(new double[]{0.05 ,0.10},new double[]{0.01, 0.99}));
 
 		/*create Learner*/
-		BackPropagation backPropagation =new BackPropagation(network, CostFunctions.COST, 0.5);
-
+		BackPropagationParallel backPropagation =new BackPropagationParallel(network, CostFunctions.COST, 0.5);
+//		BackPropagationConsecutive backPropagation =new BackPropagationConsecutive(network, CostFunctions.COST, 0.5);
+		long start = System.nanoTime();
 		for (int i = 0; i < 10; i++) {
 			backPropagation.learnNetwork(learningSampleList);
 		}
-
+		System.out.println(System.nanoTime()-start);
 		calculate = network.calculate(doubles);
 		System.out.println("calculate = " + calculate);
 

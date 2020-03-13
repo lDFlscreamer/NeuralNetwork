@@ -6,15 +6,15 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package MachineLearning;
+package machineLearning.consecutive;
 
-import MachineLearning.LearningData.LearningSample;
+import machineLearning.learningData.LearningSample;
 
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public interface MachineLearnerInterface {
+public interface MachineLearnerConsecutiveInterface {
 	void computeAdjust(double[] input, double[] ideal, Map<Integer, Double> biasAdjust, Map<Integer, Map<Integer, Double>> weightAdjust) throws ExecutionException, InterruptedException;
 
 	void learnNetwork(List<LearningSample> data);

@@ -6,7 +6,7 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package MachineLearning.LearningData;
+package machineLearning.learningData;
 
 public class LearningSample {
 	private double[] input;

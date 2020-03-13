@@ -6,7 +6,7 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package NeuralNetwork.config;
+package neuralNetwork.config;
 
 public interface Function {
 	double calculate(double sum);

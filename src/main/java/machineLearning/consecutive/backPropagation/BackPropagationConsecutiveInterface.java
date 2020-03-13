@@ -6,13 +6,13 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package MachineLearning.BackPropagation;
+package machineLearning.consecutive.backPropagation;
 
-import MachineLearning.MachineLearnerInterface;
-import NeuralNetwork.Layer;
-import NeuralNetwork.config.Function;
+import machineLearning.consecutive.MachineLearnerConsecutiveInterface;
+import neuralNetwork.Layer;
+import neuralNetwork.config.Function;
 
-public interface BackPropagationInterface extends MachineLearnerInterface {
+public interface BackPropagationConsecutiveInterface  {
 	double functionDerivative(Function func, double sum);
 
 	double dCost_dSignal(Layer current, Integer indexOfNeuron, double[] ideal);
