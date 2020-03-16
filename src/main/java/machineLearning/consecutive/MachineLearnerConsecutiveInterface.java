@@ -8,14 +8,12 @@
 
 package machineLearning.consecutive;
 
-import machineLearning.learningData.LearningSample;
+import machineLearning.MachineLearnerInterface;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public interface MachineLearnerConsecutiveInterface {
+public interface MachineLearnerConsecutiveInterface extends MachineLearnerInterface {
 	void computeAdjust(double[] input, double[] ideal, Map<Integer, Double> biasAdjust, Map<Integer, Map<Integer, Double>> weightAdjust) throws ExecutionException, InterruptedException;
 
-	void learnNetwork(List<LearningSample> data);
 }

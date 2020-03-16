@@ -8,15 +8,14 @@
 
 package machineLearning.parallel;
 
-import machineLearning.learningData.LearningSample;
+import machineLearning.MachineLearnerInterface;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinTask;
 
-public interface MachineLearnerParallelInterface {
+public interface MachineLearnerParallelInterface extends MachineLearnerInterface {
 	List<ForkJoinTask<Void>> computeAdjust(double[] input, double[] ideal, ConcurrentMap<Integer, Double> biasAdjust, ConcurrentMap<Integer, ConcurrentMap<Integer, Double>> weightAdjust) throws ExecutionException, InterruptedException;
 
-	void learnNetwork(List<LearningSample> data);
 }

@@ -8,6 +8,8 @@
 
 
 import machineLearning.CostFunctions;
+import machineLearning.MachineLearner;
+import machineLearning.MachineLearnerInterface;
 import machineLearning.learningData.LearningSample;
 import machineLearning.consecutive.backPropagation.BackPropagationConsecutive;
 import machineLearning.parallel.backPropagation.BackPropagationParallel;
@@ -22,19 +24,21 @@ import java.util.concurrent.ExecutionException;
 
 public class NetworkMain {
 
+	static int layer=9;
+	static int sample=6;
+	static boolean parallel=false;
+
+
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
 		NetworkConfig config = new NetworkConfig();
 /*create NeuralNetwork.config*/
 		config.setFunc(Functions.SIGMOID);
 		config.setInputArraySize(2);
 		List<Integer> integers = new ArrayList<>();
-		integers.add(2);
-		integers.add(8);
-		integers.add(8);
-		integers.add(8);
-		integers.add(8);
-		integers.add(8);
-		integers.add(8);
+		for (int i = 0; i <layer ; i++) {
+
+			integers.add(16);
+		}
 		config.setNeuronsOnLayer(integers);
 		config.setLastLayerNeuronsAmount(2);
 /*create Network*/
@@ -64,11 +68,13 @@ public class NetworkMain {
 
 		/*create Learning sample*/
 		List<LearningSample> learningSampleList=new ArrayList<>();
-		learningSampleList.add(new LearningSample(new double[]{0.05 ,0.10},new double[]{0.01, 0.99}));
+		for (int i = 0; i < sample; i++) {
+
+			learningSampleList.add(new LearningSample(new double[]{0.05 ,0.10},new double[]{0.01, 0.99}));
+		}
 
 		/*create Learner*/
-		BackPropagationParallel backPropagation =new BackPropagationParallel(network, CostFunctions.COST, 0.5);
-//		BackPropagationConsecutive backPropagation =new BackPropagationConsecutive(network, CostFunctions.COST, 0.5);
+		MachineLearnerInterface backPropagation =parallel?new BackPropagationParallel(network, CostFunctions.COST, 0.5):new BackPropagationConsecutive(network, CostFunctions.COST, 0.5);
 		long start = System.nanoTime();
 		for (int i = 0; i < 10; i++) {
 			backPropagation.learnNetwork(learningSampleList);
