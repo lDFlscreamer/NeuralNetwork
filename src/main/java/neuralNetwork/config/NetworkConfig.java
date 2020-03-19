@@ -6,7 +6,7 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package NeuralNetwork.config;
+package neuralNetwork.config;
 
 import java.util.ArrayList;
 import java.util.List;

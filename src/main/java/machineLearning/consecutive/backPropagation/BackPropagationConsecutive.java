@@ -6,33 +6,33 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package MachineLearning.BackPropagation;
+package machineLearning.consecutive.backPropagation;
 
-import MachineLearning.Cost;
-import MachineLearning.LearningData.LearningSample;
-import MachineLearning.MachineLearner;
-import NeuralNetwork.Layer;
-import NeuralNetwork.NeuralNetwork;
-import NeuralNetwork.Neuron;
-import NeuralNetwork.config.Function;
-import NeuralNetwork.config.Functions;
+import machineLearning.Cost;
+import machineLearning.consecutive.MachineLearnerConsecutiveInterface;
+import machineLearning.learningData.LearningSample;
+import machineLearning.MachineLearner;
+import neuralNetwork.Layer;
+import neuralNetwork.NeuralNetwork;
+import neuralNetwork.Neuron;
+import neuralNetwork.config.Function;
+import neuralNetwork.config.Functions;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class BackPropagation extends MachineLearner implements BackPropagationInterface {
+public class BackPropagationConsecutive extends MachineLearner implements BackPropagationConsecutiveInterface, MachineLearnerConsecutiveInterface {
 
 
-	public BackPropagation(NeuralNetwork neuralNetwork, Cost costFunction, double learningRate) {
+	public BackPropagationConsecutive(NeuralNetwork neuralNetwork, Cost costFunction, double learningRate) {
 		super(neuralNetwork, costFunction, learningRate);
 	}
 
 	public void computeAdjust(double[] input, double[] ideal, Map<Integer, Double> biasAdjust, Map<Integer, Map<Integer, Double>> weightAdjust) throws ExecutionException, InterruptedException {
 		neuralNetwork.calculate(input);
 		Layer layer = neuralNetwork.getLastLayer();
-		Map<Integer, Double> lastLayerResult = layer.getLayerResults();
 		weightAdjust = weightAdjust == null ? new HashMap<>() : weightAdjust;
 		biasAdjust = biasAdjust == null ? new HashMap<>() : biasAdjust;
 		double biasAdjustValue,

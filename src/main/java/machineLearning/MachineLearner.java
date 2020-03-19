@@ -6,9 +6,9 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package MachineLearning;
+package machineLearning;
 
-import NeuralNetwork.NeuralNetwork;
+import neuralNetwork.NeuralNetwork;
 
 public class MachineLearner {
 	protected final NeuralNetwork neuralNetwork;
