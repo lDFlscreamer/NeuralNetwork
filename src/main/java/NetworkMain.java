@@ -8,7 +8,6 @@
 
 
 import machineLearning.CostFunctions;
-import machineLearning.MachineLearner;
 import machineLearning.MachineLearnerInterface;
 import machineLearning.learningData.LearningSample;
 import machineLearning.consecutive.backPropagation.BackPropagationConsecutive;
@@ -24,9 +23,10 @@ import java.util.concurrent.ExecutionException;
 
 public class NetworkMain {
 
-	static int layer=9;
-	static int sample=6;
-	static boolean parallel=false;
+	static int layer=1;
+	static int learnIteration =1;
+	static int sample=1;
+	static boolean parallel=true;
 
 
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -37,13 +37,13 @@ public class NetworkMain {
 		List<Integer> integers = new ArrayList<>();
 		for (int i = 0; i <layer ; i++) {
 
-			integers.add(16);
+			integers.add(2);
 		}
 		config.setNeuronsOnLayer(integers);
 		config.setLastLayerNeuronsAmount(2);
 /*create Network*/
 		NeuralNetwork network = new NeuralNetwork(config);
-/*
+///*
 		network.getFirstLayer().getNeurons().get(0).setBias(0.35);
 		network.getFirstLayer().getNeurons().get(1).setBias(0.35);
 		network.getFirstLayer().getNextLayer().getNeurons().get(0).setBias(0.60);
@@ -56,16 +56,15 @@ public class NetworkMain {
 		network.getFirstLayer().getNextLayer().getNeurons().get(0).getWeights().set(1,0.45);
 		network.getFirstLayer().getNextLayer().getNeurons().get(1).getWeights().set(0,0.5);
 		network.getFirstLayer().getNextLayer().getNeurons().get(1).getWeights().set(1,0.55);
-*/
+//*/
 
 
 
 
 
 		double[] doubles = {0.05 ,0.1 };
-		Map<Integer, Double> calculate = network.calculate(doubles);
-		System.out.println("calculate = " + calculate);
-
+		Map<Integer, Double> networkOutput = network.calculate(doubles);
+		System.out.println("networkOutput = " + networkOutput);
 		/*create Learning sample*/
 		List<LearningSample> learningSampleList=new ArrayList<>();
 		for (int i = 0; i < sample; i++) {
@@ -76,12 +75,11 @@ public class NetworkMain {
 		/*create Learner*/
 		MachineLearnerInterface backPropagation =parallel?new BackPropagationParallel(network, CostFunctions.COST, 0.5):new BackPropagationConsecutive(network, CostFunctions.COST, 0.5);
 		long start = System.nanoTime();
-		for (int i = 0; i < 10; i++) {
+		for (int i = 0; i < learnIteration; i++) {
 			backPropagation.learnNetwork(learningSampleList);
 		}
-		System.out.println(System.nanoTime()-start);
-		calculate = network.calculate(doubles);
-		System.out.println("calculate = " + calculate);
-
+		System.out.println("learning time: "+(System.nanoTime()-start));
+		networkOutput = network.calculate(doubles);
+		System.out.println("networkOutput = " + networkOutput);
 	}
 }
