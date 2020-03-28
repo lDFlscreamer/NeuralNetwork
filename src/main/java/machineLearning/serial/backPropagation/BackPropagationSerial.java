@@ -6,10 +6,10 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package machineLearning.consecutive.backPropagation;
+package machineLearning.serial.backPropagation;
 
 import machineLearning.Cost;
-import machineLearning.consecutive.MachineLearnerConsecutiveInterface;
+import machineLearning.serial.MachineLearnerSerialInterface;
 import machineLearning.learningData.LearningSample;
 import machineLearning.MachineLearner;
 import neuralNetwork.Layer;
@@ -23,10 +23,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class BackPropagationConsecutive extends MachineLearner implements BackPropagationConsecutiveInterface, MachineLearnerConsecutiveInterface {
+public class BackPropagationSerial extends MachineLearner implements BackPropagationSerialInterface, MachineLearnerSerialInterface {
 
 
-	public BackPropagationConsecutive(NeuralNetwork neuralNetwork, Cost costFunction, double learningRate) {
+	public BackPropagationSerial(NeuralNetwork neuralNetwork, Cost costFunction, double learningRate) {
 		super(neuralNetwork, costFunction, learningRate);
 	}
 

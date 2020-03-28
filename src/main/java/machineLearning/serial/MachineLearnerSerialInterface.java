@@ -6,14 +6,14 @@
  * Written by Screamer  <999screamer999@gmail.com>
  */
 
-package machineLearning.consecutive;
+package machineLearning.serial;
 
 import machineLearning.MachineLearnerInterface;
 
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public interface MachineLearnerConsecutiveInterface extends MachineLearnerInterface {
+public interface MachineLearnerSerialInterface extends MachineLearnerInterface {
 	void computeAdjust(double[] input, double[] ideal, Map<Integer, Double> biasAdjust, Map<Integer, Map<Integer, Double>> weightAdjust) throws ExecutionException, InterruptedException;
 
 }

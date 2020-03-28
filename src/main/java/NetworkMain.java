@@ -10,7 +10,7 @@
 import machineLearning.CostFunctions;
 import machineLearning.MachineLearnerInterface;
 import machineLearning.learningData.LearningSample;
-import machineLearning.consecutive.backPropagation.BackPropagationConsecutive;
+import machineLearning.serial.backPropagation.BackPropagationSerial;
 import machineLearning.parallel.backPropagation.BackPropagationParallel;
 import neuralNetwork.NeuralNetwork;
 import neuralNetwork.config.Functions;
@@ -73,7 +73,7 @@ public class NetworkMain {
 		}
 
 		/*create Learner*/
-		MachineLearnerInterface backPropagation =parallel?new BackPropagationParallel(network, CostFunctions.COST, 0.5):new BackPropagationConsecutive(network, CostFunctions.COST, 0.5);
+		MachineLearnerInterface backPropagation =parallel?new BackPropagationParallel(network, CostFunctions.COST, 0.5):new BackPropagationSerial(network, CostFunctions.COST, 0.5);
 		long start = System.nanoTime();
 		for (int i = 0; i < learnIteration; i++) {
 			backPropagation.learnNetwork(learningSampleList);
