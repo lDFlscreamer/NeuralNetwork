@@ -28,6 +28,11 @@ public class Layer implements Serializable {
 	private final Map<Integer, Double> layerResults;
 	private Layer nextLayer;
 
+	@Override
+	public String toString() {
+		return  neurons.stream().map(Object::toString).map("\t"::concat).reduce((s, s2) -> s.concat("\n").concat(s2)).orElse("") ;
+	}
+
 	public Layer(Layer previousLayer, int initialNeuronAmount, Function function) {
 		this.previousLayer = previousLayer;
 		this.previousLayerResults = new HashMap<>();

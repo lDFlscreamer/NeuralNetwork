@@ -26,7 +26,7 @@ public class NetworkMain {
 	static int layer=1;
 	static int learnIteration =1;
 	static int sample=1;
-	static boolean parallel=true;
+	static boolean parallel=false;
 
 
 	public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -64,6 +64,7 @@ public class NetworkMain {
 
 		double[] doubles = {0.05 ,0.1 };
 		Map<Integer, Double> networkOutput = network.calculate(doubles);
+		System.out.println(network.toString());
 		System.out.println("networkOutput = " + networkOutput);
 		/*create Learning sample*/
 		List<LearningSample> learningSampleList=new ArrayList<>();
@@ -78,8 +79,9 @@ public class NetworkMain {
 		for (int i = 0; i < learnIteration; i++) {
 			backPropagation.learnNetwork(learningSampleList);
 		}
-		System.out.println("learning time: "+(System.nanoTime()-start));
+		System.out.println((parallel?"parallel":"serial")+" Back propagation learning time (10x): "+(System.nanoTime()-start)+" nano sec.");
 		networkOutput = network.calculate(doubles);
 		System.out.println("networkOutput = " + networkOutput);
+		System.out.println(network.toString());
 	}
 }

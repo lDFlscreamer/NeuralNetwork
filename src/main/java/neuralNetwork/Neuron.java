@@ -99,4 +99,16 @@ public class Neuron implements Serializable {
 		return this.function.calculate(sum);
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder  result=new StringBuilder();
+		result.append("neron{");
+		for (int i = 0; i < weights.size(); i++) {
+			result.append(i).append(": ").append(weights.get(i)).append(" ");
+		}
+		result.append("bias: ").append(bias);
+
+		result.append("}");
+		return 	result.toString();
+	}
 }

@@ -52,6 +52,17 @@ public class NeuralNetwork implements Serializable {
 		return lastLayer;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder result=new StringBuilder();
+		Layer layer = firstLayer;
+		while (layer != null) {
+			result.append("layer:").append("\n").append(layer.toString()).append("\n");
+			layer = layer.getNextLayer();
+		}
+		return result.toString();
+	}
+
 	public Map<Integer, Double> calculate(double[] input) throws ExecutionException, InterruptedException {
 		Layer layer = firstLayer;
 
